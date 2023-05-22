@@ -1,6 +1,14 @@
+using Project.BLL.ServiceInjections;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllersWithViews();
+builder.Services.AddDbContextService();
+builder.Services.AddRepManServices();
+
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Project.ENTITIES.Models;
+using Project.MAP.Configurations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +15,21 @@ namespace Project.DAL.Context
         {
 
         }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.ApplyConfiguration(new AppUserConfiguration());
+            builder.ApplyConfiguration(new CategoryConfiguration());
+            builder.ApplyConfiguration(new ProfileConfiguration());
+            builder.ApplyConfiguration(new OrderConfiguration());
+            builder.ApplyConfiguration(new ProductConfiguration());
+            builder.ApplyConfiguration(new OrderDetailConfiguration());
+        }
+        public DbSet<AppUser> AppUsers { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<AppUserProfile> Profiles { get; set; }
     }
 }

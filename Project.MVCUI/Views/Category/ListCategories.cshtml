@@ -1,0 +1,29 @@
+﻿@model ListCategoryPageVM
+@{
+    ViewData["Title"] = "ListCategories";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Kategori İsmi</th>
+        <th>Açıklama</th>
+        <th>Durum</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+    </tr>
+    @foreach (CategoryVM item in Model.Categories)
+    {
+        <tr>
+            <th>@item.ID</th>
+            <th>@item.CategoryName</th>
+            <th>@item.Description</th>
+            <th>@item.Status</th>
+            <th>@Html.ActionLink("Sil","DeleteCategory",new{id = item.ID} ,new{@class="btn btn-warning"})</th>
+            <th>@Html.ActionLink("Güncelle","UpdateCategory",new{id = item.ID} ,new{@class="btn btn-danger"})</th>
+        </tr>
+    }
+</table>
+@Html.ActionLink("Yeni Kategori","AddCategory",null,new{@class="btn btn-success"})
+

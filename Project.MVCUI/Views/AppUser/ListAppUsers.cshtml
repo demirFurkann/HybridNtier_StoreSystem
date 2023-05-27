@@ -1,0 +1,101 @@
+﻿
+@model PaginationVM
+
+
+@{
+    ViewData["Title"] = "ListAppUsers";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .user-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+        .user-table th, .user-table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .user-table th {
+            background-color: #f2f2f2;
+        }
+
+    .pager-container {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+        .pager-container a {
+            display: inline-block;
+            padding: 8px 12px;
+            margin-right: 5px;
+            background-color: #f1f1f1;
+            color: #333;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+            .pager-container a.active {
+                background-color: #4CAF50;
+                color: white;
+            }
+</style>
+
+<h1>Kullanıcılar</h1>
+
+<table class="user-table">
+    <thead>
+        <tr>
+           
+            <th>Ad</th>
+            <th>Soyad</th>
+            <th>Rol</th>
+            <th>Durum</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (AppUserVM user in Model.PagedAppUsers)
+        {
+            <tr>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td>@user.UserRole</td>
+                <td>@user.Status</td>
+                <td>@Html.ActionLink("Sil","DeleteAppUser",new{id=user.ID},new{@class="btn btn-warning"})</td>
+                <td>@Html.ActionLink("Güncelle","UpdateAppUser",new{id=user.ID},new{@class="btn btn-danger"})</td>
+
+                
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Sayfalama bağlantıları -->
+<div class="pager-container">
+    @if (Model.PagedAppUsers.PageCount > 1)
+    {
+        @for (int i = 1; i <= Model.PagedAppUsers.PageCount; i++)
+        {
+            var pageClass = (i == Model.PagedAppUsers.PageNumber) ? "active" : "";
+            <a href="@Url.Action("ListAppUsers", new { pageNumber = i })" class="@pageClass">@i</a>
+        }
+    }
+</div>
+
+@Html.ActionLink("Yeni Müşteri Kaydı", "AddAppUser", null, new { @class = "btn btn-danger" })
+
+
+
+
+
+
+

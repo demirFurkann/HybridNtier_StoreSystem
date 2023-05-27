@@ -1,0 +1,30 @@
+﻿@model AddUpdateAppUserPageVM
+@{
+    ViewData["Title"] = "AddAppUser";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.AppUser.UserName)
+        @Html.TextBoxFor(model => model.AppUser.UserName, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.AppUser.Password)
+        @Html.PasswordFor(model => model.AppUser.Password, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.AppUser.Profile.FirstName)
+        @Html.TextBoxFor(model => model.AppUser.Profile.FirstName, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.AppUser.Profile.LastName)
+        @Html.TextBoxFor(model => model.AppUser.Profile.LastName, new { @class = "form-control" })
+    </div>
+
+    <!-- Diğer profil bilgilerini buraya ekleyebilirsiniz -->
+
+    <button type="submit" class="btn btn-primary">Add User</button>
+}
+

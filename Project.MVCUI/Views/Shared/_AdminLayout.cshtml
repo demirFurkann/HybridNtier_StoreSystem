@@ -25,7 +25,7 @@
                 <li><a href="/Product/ListProducts">Ürünler</a></li>
                 <li><a href="/AppUser/ListAppUsers">Müşteriler</a></li>
                 <li><a href="/Category/ListCategories">Kategoriler</a></li>
-                <li><a href="#">Satışlar</a></li>
+                <li><a href="/OrderDetail/ListOrderDetails">Satışlar</a></li>
                 <li><a href="#">Yardım</a></li>
                 <li><a href="#">Ayarlar</a></li>
                 <li><a href="#">Çıkış</a></li>
@@ -36,7 +36,7 @@
     <div class="container">
         @RenderBody()
     </div>
-
+    @RenderSection("scripts", required: false)
 </body>
 </html>
 

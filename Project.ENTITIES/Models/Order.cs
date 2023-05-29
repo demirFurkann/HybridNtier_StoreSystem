@@ -10,15 +10,17 @@ namespace Project.ENTITIES.Models
 {
     public class Order : BaseEntity
     {
-        public string ShippingAddress { get; set; }
-        public decimal TotalPrice { get; set; }
-        public string NonMemberMail { get; set; }
-        public string NonMemberName { get; set; }
-        public int? AppUserID { get; set; }
+        public short Quantity { get; set; }
+        public decimal UnitPrice { get; set; }
 
         //
 
-        public virtual AppUser AppUser { get; set; }
+
         public virtual List<OrderDetail> OrderDetails { get; set; }
+
+        public Order()
+        {
+            OrderDetails = new List<OrderDetail>();
+        }
     }
 }

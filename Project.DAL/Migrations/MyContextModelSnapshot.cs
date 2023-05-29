@@ -127,16 +127,13 @@ namespace Project.DAL.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Project.ENTITIES.Models.Order", b =>
+            modelBuilder.Entity("Project.ENTITIES.Models.Employee", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<int?>("AppUserID")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2")
@@ -145,41 +142,32 @@ namespace Project.DAL.Migrations
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("ModifedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("NonMemberMail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NonMemberName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ShippingAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
-
                     b.HasKey("ID");
 
-                    b.HasIndex("AppUserID");
-
-                    b.ToTable("Orders");
+                    b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("Project.ENTITIES.Models.OrderDetail", b =>
+            modelBuilder.Entity("Project.ENTITIES.Models.Order", b =>
                 {
-                    b.Property<int>("OrderID")
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2")
@@ -197,10 +185,52 @@ namespace Project.DAL.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Project.ENTITIES.Models.OrderDetail", b =>
+                {
+                    b.Property<int>("OrderID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AppUserID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Oluşturulma Tarihi");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("EmployeeID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<short>("Quantity")
+                        .HasColumnType("smallint");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("OrderID", "ProductID");
+
+                    b.HasIndex("AppUserID");
+
+                    b.HasIndex("EmployeeID");
 
                     b.HasIndex("ProductID");
 
@@ -224,10 +254,6 @@ namespace Project.DAL.Migrations
 
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("ImagePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ModifedDate")
                         .HasColumnType("datetime2");
@@ -266,17 +292,16 @@ namespace Project.DAL.Migrations
                     b.Navigation("AppUser");
                 });
 
-            modelBuilder.Entity("Project.ENTITIES.Models.Order", b =>
-                {
-                    b.HasOne("Project.ENTITIES.Models.AppUser", "AppUser")
-                        .WithMany("Orders")
-                        .HasForeignKey("AppUserID");
-
-                    b.Navigation("AppUser");
-                });
-
             modelBuilder.Entity("Project.ENTITIES.Models.OrderDetail", b =>
                 {
+                    b.HasOne("Project.ENTITIES.Models.AppUser", "AppUser")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("AppUserID");
+
+                    b.HasOne("Project.ENTITIES.Models.Employee", "Employee")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("EmployeeID");
+
                     b.HasOne("Project.ENTITIES.Models.Order", "Order")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderID")
@@ -288,6 +313,10 @@ namespace Project.DAL.Migrations
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Employee");
 
                     b.Navigation("Order");
 
@@ -305,7 +334,7 @@ namespace Project.DAL.Migrations
 
             modelBuilder.Entity("Project.ENTITIES.Models.AppUser", b =>
                 {
-                    b.Navigation("Orders");
+                    b.Navigation("OrderDetails");
 
                     b.Navigation("Profile")
                         .IsRequired();
@@ -314,6 +343,11 @@ namespace Project.DAL.Migrations
             modelBuilder.Entity("Project.ENTITIES.Models.Category", b =>
                 {
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Project.ENTITIES.Models.Employee", b =>
+                {
+                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("Project.ENTITIES.Models.Order", b =>

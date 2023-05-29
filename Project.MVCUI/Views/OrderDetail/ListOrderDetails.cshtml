@@ -1,0 +1,30 @@
+﻿@model OrderDetailListPageVM
+@{
+    ViewData["Title"] = "ListOrderDetails";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <table class="table table-bordered">
+        <tr>
+            <th>Müşteri Adı</th>
+            <th>Aldığı Ürün</th>
+            <th>Fiyat</th>
+            <th>Satan Personel</th>
+        </tr>
+        <tbody>
+            @foreach (OrderDetailVM item in Model.OrderDetails)
+            {
+                <tr>
+                    <td>@item.AppUserName</td>
+                    <td>@item.ProductName</td>
+                    <td>@item.SalesPrice</td>
+                    <td>@item.EmployeName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+@Html.ActionLink("Yeni Satiş","AddOrderDetail",null,new {@class="btn btn-warning"})
+

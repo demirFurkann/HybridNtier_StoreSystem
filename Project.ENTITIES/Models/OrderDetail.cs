@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace Project.ENTITIES.Models
 {
-    public class OrderDetail:BaseEntity
+    public class OrderDetail : BaseEntity
     {
         public int OrderID { get; set; }
         public int ProductID { get; set; }
+        public int? AppUserID { get; set; }
+        public int? EmployeeID { get; set; }
 
         public decimal TotalPrice { get; set; }
         public short Quantity { get; set; }
@@ -18,5 +20,7 @@ namespace Project.ENTITIES.Models
 
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
+        public virtual AppUser AppUser { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

@@ -15,6 +15,7 @@ namespace Project.DAL.Context
         {
 
         }
+     
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -24,6 +25,7 @@ namespace Project.DAL.Context
             builder.ApplyConfiguration(new OrderConfiguration());
             builder.ApplyConfiguration(new ProductConfiguration());
             builder.ApplyConfiguration(new OrderDetailConfiguration());
+            builder.ApplyConfiguration(new Employeeconfiguration());
         }
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -31,5 +33,6 @@ namespace Project.DAL.Context
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<AppUserProfile> Profiles { get; set; }
+        public DbSet<Employee>Employees { get; set; }
     }
 }

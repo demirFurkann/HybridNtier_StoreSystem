@@ -24,6 +24,7 @@ namespace Project.BLL.ServiceInjections
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IEmployeRepository, EmployeRepository>();
 
 
             services.AddScoped(typeof(IManager<>), typeof(BaseManager<>));
@@ -34,6 +35,8 @@ namespace Project.BLL.ServiceInjections
             services.AddScoped<IOrderDetailManager, OrderDetailManager>();
             services.AddScoped<IProductManager, ProductManager>();
             services.AddScoped<IOrderManager, OrderManager>();
+            services.AddScoped<IEmployeManager, EmployeManager>();
+
             return services;
 
         }

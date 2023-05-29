@@ -23,7 +23,11 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
+app.MapControllerRoute(
+    name: "addOrderForm",
+    pattern: "Order/AddOrderForm",
+    defaults: new { controller = "Order", action = "AddOrderForm" }
+);
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Category}/{action=ListCategories}/{id?}");

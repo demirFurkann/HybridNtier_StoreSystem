@@ -1,0 +1,20 @@
+﻿@model OrderDetailAddUpdatePageVM
+@{
+    ViewData["Title"] = "AddOrderDetail";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.DropDownListFor(x=> x.OrderDetail.ProductID,new SelectList(Model.Product,"ID","ProductName"),"Litfen Ürün Seçiniz",new{@class="form-control"})
+    @Html.DropDownListFor(x=> x.OrderDetail.AppUserID,new SelectList(Model.AppUser,"ID","UserName"),"Litfen Müşteri Seçiniz",new{@class="form-control"})
+    @Html.DropDownListFor(x=> x.OrderDetail.EmployeeID,new SelectList(Model.Employe,"ID","FirstName"),"Litfen Çalişan Seçiniz",new{@class="form-control"})
+
+    <div class="form-group">
+        <label class="col-sm-2">İşlem:</label>
+        <div class="col-sm-10">
+            <button class="btn btn-primary">Ekle</button>
+        </div>
+    </div>
+}
+

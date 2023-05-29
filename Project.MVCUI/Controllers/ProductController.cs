@@ -27,7 +27,7 @@ namespace Project.MVCUI.Controllers
                 UnitsInStock = x.UnitsInStock,
                 PurchasePrice = x.PurchasePrice,
                 SalePrice = x.SalePrice,
-                ImagePath = x.ImagePath,
+              
                 CategoryName = x.Category.CategoryName,
                 Status = x.Status.ToString(),
             }).ToList();

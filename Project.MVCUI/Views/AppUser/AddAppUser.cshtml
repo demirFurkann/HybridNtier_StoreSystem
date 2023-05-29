@@ -17,10 +17,13 @@
     <div class="form-group">
         @Html.LabelFor(model => model.AppUser.Profile.FirstName)
         @Html.TextBoxFor(model => model.AppUser.Profile.FirstName, new { @class = "form-control" })
+        @*@Html.ValidationMessageFor(model => model.AppUser.Profile.FirstName,"", new {@style="color:Black"})*@
     </div>
     <div class="form-group">
         @Html.LabelFor(model => model.AppUser.Profile.LastName)
         @Html.TextBoxFor(model => model.AppUser.Profile.LastName, new { @class = "form-control" })
+        @*@Html.ValidationMessageFor(model => model.AppUser.Profile.LastName,"", new {@style="color:Green"})*@
+
     </div>
 
     <!-- Diğer profil bilgilerini buraya ekleyebilirsiniz -->

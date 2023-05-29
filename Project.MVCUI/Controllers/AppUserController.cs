@@ -62,12 +62,15 @@ namespace Project.MVCUI.Controllers
         public IActionResult AddAppUser()
         {
 
-
             return View();
         }
         [HttpPost]
         public IActionResult AddAppUser(AppUserVM appUser)
         {
+            //if (!ModelState.IsValid)
+            //{
+            //    return View("AddAppUser");
+            //}
             AppUser ap = new AppUser
             {
                 UserName = appUser.UserName,

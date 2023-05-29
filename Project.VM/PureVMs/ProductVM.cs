@@ -14,7 +14,7 @@ namespace Project.VM.PureVMs
         public decimal PurchasePrice { get; set; }
         public decimal SalePrice { get; set; }
         public string Status { get; set; }
-        public string ImagePath { get; set; }
+      
         public string CategoryName { get; set; }
         public int? CategoryID { get; set; }
 

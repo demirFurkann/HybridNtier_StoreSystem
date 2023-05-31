@@ -30,6 +30,6 @@ app.MapControllerRoute(
 );
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Category}/{action=ListCategories}/{id?}");
+    pattern: "{controller=Login}/{action=RegisterNow}/{id?}");
 
 app.Run();

@@ -4,6 +4,11 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+<form method="GET" acaction="/OrderDetail/ListOrderDetails">
+    <input type="text" name="search" placeholder="Müşteri ara">
+    <button type="submit">Ara</button>
+</form>
+
 <div class="container">
     <table class="table table-bordered">
         <tr>

@@ -60,9 +60,14 @@ namespace Project.MVCUI.Controllers
             }).ToList();
         }
 
-        public IActionResult ListOrderDetails()
+        public IActionResult ListOrderDetails(string search)
         {
             List<OrderDetailVM> orderDetails = GetOrderDetailVMs();
+            if (orderDetails != null && !String.IsNullOrEmpty(search))
+            {
+                orderDetails = orderDetails.Where(x => x.AppUserName != null && x.AppUserName.ToLower().Contains(search.ToLower())).ToList();
+            }
+
             OrderDetailListPageVM odlpvm = new OrderDetailListPageVM
             {
                 OrderDetails = orderDetails,

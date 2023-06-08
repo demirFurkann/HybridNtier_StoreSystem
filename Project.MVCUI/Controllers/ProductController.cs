@@ -17,17 +17,40 @@ namespace Project.MVCUI.Controllers
             _pMan = pMan;
             _cMan = cMan;
         }
-
-        private List<ProductVM> GetProductsVMs()
+        private List<ProductVM> GetPassives()
         {
-            return _pMan.Select(x => new ProductVM
+            return _pMan.Where(x => x.Status == ENTITIES.Enums.DataStatus.Deleted).Select(x => new ProductVM
             {
                 ID = x.ID,
                 ProductName = x.ProductName,
                 UnitsInStock = x.UnitsInStock,
                 PurchasePrice = x.PurchasePrice,
                 SalePrice = x.SalePrice,
-              
+                CategoryName = x.Category.CategoryName,
+                Status = x.Status.ToString()
+            }).ToList();
+        }
+
+        public IActionResult PassiveProducts()
+        {
+            List<ProductVM> products = GetPassives();
+            ListProductPageVM pvm = new ListProductPageVM
+            {
+                Products = products,
+            };
+            return View(pvm);
+        }
+
+        private List<ProductVM> GetProductsVMs()
+        {
+            return _pMan.Where(x => x.Status != ENTITIES.Enums.DataStatus.Deleted).Select(x => new ProductVM
+            {
+                ID = x.ID,
+                ProductName = x.ProductName,
+                UnitsInStock = x.UnitsInStock,
+                PurchasePrice = x.PurchasePrice,
+                SalePrice = x.SalePrice,
+
                 CategoryName = x.Category.CategoryName,
                 Status = x.Status.ToString(),
             }).ToList();
@@ -95,17 +118,17 @@ namespace Project.MVCUI.Controllers
                     CategoryID = x.CategoryID,
                 }).FirstOrDefault()
             };
-            return View(apvm);  
+            return View(apvm);
         }
         [HttpPost]
         public IActionResult UpdateProduct(ProductVM product)
         {
             Product toBeUpdated = _pMan.Find(product.ID);
-            toBeUpdated.ProductName=product.ProductName;
-            toBeUpdated.PurchasePrice=product.PurchasePrice;
-            toBeUpdated.SalePrice=product.SalePrice;
-            toBeUpdated.UnitsInStock=product.UnitsInStock;
-            toBeUpdated.CategoryID=product.CategoryID;
+            toBeUpdated.ProductName = product.ProductName;
+            toBeUpdated.PurchasePrice = product.PurchasePrice;
+            toBeUpdated.SalePrice = product.SalePrice;
+            toBeUpdated.UnitsInStock = product.UnitsInStock;
+            toBeUpdated.CategoryID = product.CategoryID;
             _pMan.Update(toBeUpdated);
             return RedirectToAction("ListProducts");
         }

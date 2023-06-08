@@ -1,0 +1,56 @@
+﻿@using X.PagedList.Mvc.Core
+@model PaginationShoppingVM
+
+@{
+    ViewData["Title"] = "ShoppingList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var selectedCategoryID = TempData["catID"] as int?;
+    var stokMesaj = TempData["StokMesaj"] as string;
+}
+
+@if (!string.IsNullOrEmpty(stokMesaj))
+{
+    <h3>@stokMesaj</h3>
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <!-- Kategori Listesi -->
+            <div class="category-list">
+                <h3>Kategoriler:</h3>
+                <ul>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <li>
+                            @Html.ActionLink(category.CategoryName, "ShoppingList", new { categoryID = category.ID }, new { @class = selectedCategoryID == category.ID ? "selected" : "" })
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <!-- Ürünlerin Listesi -->
+            <div class="product-list row">
+                @foreach (ProductVM product in Model.PagedProducts)
+                {
+                    <div class="col-md-4">
+                        <div class="product-item">
+                            <h4>@product.ProductName</h4>
+                            <p>Price: @product.SalePrice</p>
+                            <p>Units in Stock: @product.UnitsInStock</p>
+                            <a href="@Url.Action("AddToCart", new { id = product.ID })" class="addtocart">
+                                <i class="icon-shopping-cart"></i> Ürün Ekle
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Sayfalama Bölümü -->
+            <div class="pagination">
+                @Html.PagedListPager(Model.PagedProducts, page => Url.Action("ShoppingList", new { page, categoryID = TempData["catID"] }))
+            </div>
+        </div>
+    </div>
+</div>

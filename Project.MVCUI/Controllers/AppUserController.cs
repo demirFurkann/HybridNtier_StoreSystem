@@ -73,6 +73,7 @@ namespace Project.MVCUI.Controllers
             //}
             AppUser ap = new AppUser
             {
+                
                 UserName = appUser.UserName,
                 Password = appUser.Password,
                 Profile = new AppUserProfile

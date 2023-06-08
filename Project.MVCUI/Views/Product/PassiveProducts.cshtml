@@ -1,0 +1,37 @@
+﻿@model ListProductPageVM
+@{
+    ViewData["Title"] = "PassiveProducts";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Ürün Adı</th>
+        <th>Stok</th>
+        <th>Alış Fiyatı</th>
+        <th>Satış Fiyatı</th>
+        <th>Kategori</th>
+        <th>Durum</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+    </tr>
+    @foreach (ProductVM item in Model.Products)
+    {
+        <tr>
+            <th>@item.ID</th>
+            <th>@item.ProductName</th>
+            <th>@item.UnitsInStock</th>
+            <th>@item.PurchasePrice</th>
+            <th>@item.SalePrice</th>
+            <th>@item.CategoryName</th>
+            <th>@item.Status</th>
+            <th>@Html.ActionLink("Sil","DeleteProduct",new{id = item.ID} ,new{@class="btn btn-warning"})</th>
+            <th>@Html.ActionLink("Güncelle","UpdateProduct",new{id = item.ID} ,new{@class="btn btn-danger"})</th>
+        </tr>
+    }
+</table>
+@Html.ActionLink("Yeni Ürün","AddProduct",null,new{@class="btn btn-success"})
+
+
+

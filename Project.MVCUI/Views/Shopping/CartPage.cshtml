@@ -1,0 +1,56 @@
+﻿@model CartPageVM
+
+@using Project.MVCUI.ShoppingTools;
+@{
+    ViewData["Title"] = "CartPage";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@if (Model.Cart != null && Model.Cart.Sepetim.Count > 0)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Ürün Adı</th>
+                <th>Adet</th>
+                <th>Fiyat</th>
+                <th>Toplam Fiyat</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (CartItem item in Model.Cart.Sepetim)
+            {
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.Name</td>
+                    <td>@item.Amount</td>
+                    <td>@item.Price</td>
+                    <td>@(item.Amount * item.Price)</td>
+                    <td>
+                        <form asp-controller="Cart" asp-action="RemoveFromCart" method="post">
+                            <input type="hidden" name="id" value="@item.ID" />
+                            <button type="submit">Çıkar</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td colspan="4"><b>Toplam:</b></td>
+                <td><b>@Model.Cart.TotalPrice</b></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Sepetiniz boş.</p>
+}
+
+@if (ViewBag.SepetBos != null)
+{
+    <p>@ViewBag.SepetBos</p>
+}

@@ -18,7 +18,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Project.BLL\Project.BLL.csproj" />
+    <ProjectReference Include="..\Project.COMMON\Project.COMMON.csproj" />
     <ProjectReference Include="..\Project.VM\Project.VM.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\AdminPureVMs\" />
+    <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
 
 </Project>
